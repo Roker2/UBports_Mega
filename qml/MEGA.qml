@@ -31,7 +31,7 @@ MainView {
 
     LoginPage {
         id: loginPage
-        onClicked: {
+        onSignIn: {
             if (u.signIn()) {
                 firstPage.show()
                 loginPage.hide()

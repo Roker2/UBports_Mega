@@ -22,6 +22,7 @@ import Qt.labs.settings 1.0
 
     Page {
         id: loginPage
+        signal signIn
         anchors.fill: parent
 
         header: PageHeader {
@@ -68,6 +69,7 @@ import Qt.labs.settings 1.0
                     color: "white"
                     anchors.centerIn: parent
                 }
+                onClicked: loginPage.signIn()
                 color: 'red'
                 Layout.alignment: Qt.AlignCenter
             }
