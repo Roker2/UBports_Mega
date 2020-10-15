@@ -20,15 +20,6 @@ import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
-MainView {
-    id: loginView
-    objectName: 'loginView'
-    applicationName: 'mega.roker2'
-    automaticOrientation: true
-
-    width: units.gu(45)
-    height: units.gu(75)
-
     Page {
         id: loginPage
         anchors.fill: parent
@@ -78,32 +69,7 @@ MainView {
                     anchors.centerIn: parent
                 }
                 color: 'red'
-                onClicked: {
-                    if (u.signIn()) {
-                        firstPage.show()
-                        loginPage.hide()
-                    }
-                }
                 Layout.alignment: Qt.AlignCenter
             }
         }
     }
-
-
-    Page {
-        id: firstPage
-        anchors.fill: parent
-
-        header: PageHeader {
-            id: header2
-            title: i18n.tr('MEGAClient')
-        }
-
-        Label {
-            text: "Test"
-            horizontalAlignment: Label.AlignHCenter
-            Layout.fillWidth: true
-        }
-
-    }
-}

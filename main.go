@@ -42,7 +42,7 @@ func main() {
 
 func run() error {
 	engine := qml.NewEngine()
-	component, err := engine.LoadFile("qml/login.qml")
+	component, err := engine.LoadFile("qml/MEGA.qml")
 	if err != nil {
 		return err
 	}
