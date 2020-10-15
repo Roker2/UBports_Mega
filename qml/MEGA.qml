@@ -29,30 +29,35 @@ MainView {
     width: units.gu(45)
     height: units.gu(75)
 
-    LoginPage {
-        id: loginPage
-        onSignIn: {
-            if (u.signIn()) {
-                firstPage.onShow()
-                loginPage.hide()
+    PageStack {
+        id: pushStack
+        Component.onCompleted: push(loginPage)
+
+        LoginPage {
+            id: loginPage
+            onSignIn: {
+                if (u.signIn()) {
+                    firstPage.onShow()
+                    loginPage.hide()
+                }
             }
         }
-    }
 
-    Page {
-        id: firstPage
-        anchors.fill: parent
+        Page {
+            id: firstPage
+            anchors.fill: parent
 
-        header: PageHeader {
-            id: header2
-            title: i18n.tr('MEGAClient')
+            header: PageHeader {
+                id: header2
+                title: i18n.tr('MEGAClient')
+            }
+
+            Label {
+                text: "Test"
+                horizontalAlignment: Label.AlignHCenter
+                Layout.fillWidth: true
+            }
+
         }
-
-        Label {
-            text: "Test"
-            horizontalAlignment: Label.AlignHCenter
-            Layout.fillWidth: true
-        }
-
     }
 }
