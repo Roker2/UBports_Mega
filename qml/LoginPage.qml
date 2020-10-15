@@ -77,12 +77,6 @@ Page {
             }
         }
 
-        Label {
-            text: u.output
-            horizontalAlignment: Label.AlignHCenter
-            Layout.fillWidth: true
-        }
-
         Button {
             Text {
                 text: "Sign in"

@@ -18,8 +18,6 @@ package main
 
 import (
 	"log"
-	//"strconv"
-
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
 )
@@ -28,7 +26,6 @@ type user struct {
 	Login string
 	Password string
 	mega *mega.Mega
-	Output string
 }
 
 var Root qml.Object
@@ -47,7 +44,7 @@ func run() error {
 		return err
 	}
 
-	u := user{Login: "Login", Password: "Password", Output: "Text", mega: mega.New()}
+	u := user{Login: "Login", Password: "Password", mega: mega.New()}
 	context := engine.Context()
 	context.SetVar("u", &u)
 
@@ -60,16 +57,14 @@ func run() error {
 }
 
 func (u *user) SignIn() bool {
-	log.Println(u.Login)
-	log.Println(u.Password)
+	log.Println("Login: " + u.Login)
+	log.Println("Password: " + u.Password)
 	err := u.mega.Login(u.Login, u.Password)
 	if err != nil {
-		u.Output = err.Error()
-	    qml.Changed(u, &u.Output)
+        log.Println(err)
         return false
 	} else {
-		u.Output = "Work."
-	    qml.Changed(u, &u.Output)
+        log.Println("Work")
         return true
 	}
 }

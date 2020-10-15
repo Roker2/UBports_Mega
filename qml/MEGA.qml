@@ -33,7 +33,7 @@ MainView {
         id: loginPage
         onSignIn: {
             if (u.signIn()) {
-                firstPage.show()
+                firstPage.onShow()
                 loginPage.hide()
             }
         }
