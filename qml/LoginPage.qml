@@ -20,78 +20,78 @@ import Ubuntu.Components 1.3
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
-    Page {
-        id: loginPage
-        signal signIn
-        anchors.fill: parent
+Page {
+    id: loginPage
+    signal signIn
+    anchors.fill: parent
 
-        header: PageHeader {
-            id: header
-            title: i18n.tr('MEGAClient')
+    header: PageHeader {
+        id: header
+        title: i18n.tr('MEGAClient')
+    }
+
+    ColumnLayout {
+        spacing: units.gu(2)
+        anchors {
+            margins: units.gu(2)
+            top: header.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
         }
 
-        ColumnLayout {
-            spacing: units.gu(2)
-            anchors {
-                margins: units.gu(2)
-                top: header.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
+        Rectangle {
+            width: parent.width - 30 ;
+            height: 22
+            anchors.horizontalCenter: parent.horizontalCenter
+            border.width: 3
+            border.color: "#000000"
+            radius: 5
+
+            TextInput {
+                id: login
+                x: 5
+                y: 2
+                width: parent.width - x ;
+                //text: "Login"
+                onEditingFinished: { u.login = login.text }
             }
+        }
 
-            Rectangle {
-                width: parent.width - 30 ;
-                height: 22
-                anchors.horizontalCenter: parent.horizontalCenter
-                border.width: 3
-                border.color: "#000000"
-                radius: 5
+        Rectangle {
+            width: parent.width - 30 ;
+            height: 22
+            anchors.horizontalCenter: parent.horizontalCenter
+            border.width: 3
+            border.color: "#000000"
+            radius: 5
 
-                TextInput {
-                    id: login
-                    x: 5
-                    y: 2
-                    width: parent.width - x ;
-                    //text: "Login"
-                    onEditingFinished: { u.login = login.text }
-                }
+            TextInput {
+                id: pswd
+                x: 5
+                y: 2
+                width: parent.width - x ;
+                //text: "Password"
+                echoMode: TextInput.PasswordEchoOnEdit
+                onEditingFinished: { u.password = pswd.text }
             }
+        }
 
-            Rectangle {
-                width: parent.width - 30 ;
-                height: 22
-                anchors.horizontalCenter: parent.horizontalCenter
-                border.width: 3
-                border.color: "#000000"
-                radius: 5
+        Label {
+            text: u.output
+            horizontalAlignment: Label.AlignHCenter
+            Layout.fillWidth: true
+        }
 
-                TextInput {
-                    id: pswd
-                    x: 5
-                    y: 2
-                    width: parent.width - x ;
-                    //text: "Password"
-                    echoMode: TextInput.PasswordEchoOnEdit
-                    onEditingFinished: { u.password = pswd.text }
-                }
+        Button {
+            Text {
+                text: "Sign in"
+                color: "white"
+                anchors.centerIn: parent
             }
-
-            Label {
-                text: u.output
-                horizontalAlignment: Label.AlignHCenter
-                Layout.fillWidth: true
-            }
-
-            Button {
-                Text {
-                    text: "Sign in"
-                    color: "white"
-                    anchors.centerIn: parent
-                }
-                onClicked: loginPage.signIn()
-                color: 'red'
-                Layout.alignment: Qt.AlignCenter
-            }
+            onClicked: loginPage.signIn()
+            color: 'red'
+            Layout.alignment: Qt.AlignCenter
         }
     }
+}
