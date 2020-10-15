@@ -40,14 +40,7 @@ Page {
             bottom: parent.bottom
         }
 
-        Rectangle {
-            width: parent.width - 30 ;
-            height: 22
-            anchors.horizontalCenter: parent.horizontalCenter
-            border.width: 3
-            border.color: "#000000"
-            radius: 5
-
+        InputRectangle {
             TextInput {
                 id: login
                 x: 5
@@ -58,14 +51,7 @@ Page {
             }
         }
 
-        Rectangle {
-            width: parent.width - 30 ;
-            height: 22
-            anchors.horizontalCenter: parent.horizontalCenter
-            border.width: 3
-            border.color: "#000000"
-            radius: 5
-
+        InputRectangle {
             TextInput {
                 id: pswd
                 x: 5
