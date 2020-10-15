@@ -30,7 +30,7 @@ MainView {
     height: units.gu(75)
 
     PageStack {
-        id: pushStack
+        id: pageStack
         Component.onCompleted: push(loginPage)
 
         LoginPage {
