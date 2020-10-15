@@ -21,7 +21,7 @@ import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 
 MainView {
-    id: root
+    id: loginView
     objectName: 'loginView'
     applicationName: 'mega.roker2'
     automaticOrientation: true
