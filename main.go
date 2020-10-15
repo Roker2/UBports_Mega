@@ -59,14 +59,17 @@ func run() error {
 	return nil
 }
 
-func (u *user) SignIn() {
+func (u *user) SignIn() bool {
 	log.Println(u.Login)
 	log.Println(u.Password)
 	err := u.mega.Login(u.Login, u.Password)
 	if err != nil {
 		u.Output = err.Error()
+	    qml.Changed(u, &u.Output)
+        return false
 	} else {
 		u.Output = "Work."
+	    qml.Changed(u, &u.Output)
+        return true
 	}
-	qml.Changed(u, &u.Output)
 }

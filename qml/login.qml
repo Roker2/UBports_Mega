@@ -30,6 +30,7 @@ MainView {
     height: units.gu(75)
 
     Page {
+        id: loginPage
         anchors.fill: parent
 
         header: PageHeader {
@@ -77,9 +78,32 @@ MainView {
                     anchors.centerIn: parent
                 }
                 color: 'red'
-                onClicked: u.signIn()
+                onClicked: {
+                    if (u.signIn()) {
+                        firstPage.show()
+                        loginPage.hide()
+                    }
+                }
                 Layout.alignment: Qt.AlignCenter
             }
         }
+    }
+
+
+    Page {
+        id: firstPage
+        anchors.fill: parent
+
+        header: PageHeader {
+            id: header2
+            title: i18n.tr('MEGAClient')
+        }
+
+        Label {
+            text: "Test"
+            horizontalAlignment: Label.AlignHCenter
+            Layout.fillWidth: true
+        }
+
     }
 }
