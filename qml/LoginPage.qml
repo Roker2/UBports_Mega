@@ -40,21 +40,41 @@ import Qt.labs.settings 1.0
                 bottom: parent.bottom
             }
 
-            TextInput {
-                id: login
-                text: "Login"
-                color: 'red'
-                Layout.alignment: Qt.AlignCenter
-                onEditingFinished: { u.login = login.text }
+            Rectangle {
+                width: parent.width - 30 ;
+                height: 22
+                anchors.horizontalCenter: parent.horizontalCenter
+                border.width: 3
+                border.color: "#000000"
+                radius: 5
+
+                TextInput {
+                    id: login
+                    x: 5
+                    y: 2
+                    width: parent.width - x ;
+                    //text: "Login"
+                    onEditingFinished: { u.login = login.text }
+                }
             }
 
-            TextInput {
-                id: pswd
-                text: "Password"
-                color: 'red'
-                Layout.alignment: Qt.AlignCenter
-                echoMode: TextInput.PasswordEchoOnEdit
-                onEditingFinished: { u.password = pswd.text }
+            Rectangle {
+                width: parent.width - 30 ;
+                height: 22
+                anchors.horizontalCenter: parent.horizontalCenter
+                border.width: 3
+                border.color: "#000000"
+                radius: 5
+
+                TextInput {
+                    id: pswd
+                    x: 5
+                    y: 2
+                    width: parent.width - x ;
+                    //text: "Password"
+                    echoMode: TextInput.PasswordEchoOnEdit
+                    onEditingFinished: { u.password = pswd.text }
+                }
             }
 
             Label {
