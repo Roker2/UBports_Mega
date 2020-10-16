@@ -17,9 +17,9 @@
 package main
 
 import (
-	"log"
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
+	"log"
 )
 
 type user struct {
