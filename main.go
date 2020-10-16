@@ -20,6 +20,7 @@ import (
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
 	"log"
+	"strings"
 )
 
 type user struct {
@@ -82,5 +83,6 @@ func (u *user) GetFiles() string {
 		paths += node.GetName() + "|"
 		log.Println(node.GetName())
 	}
+	paths = strings.TrimSuffix(paths, "|")
 	return paths
 }
