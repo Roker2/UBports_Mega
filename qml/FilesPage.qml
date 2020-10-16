@@ -60,7 +60,8 @@ Page {
     }
 
     Component.onCompleted:  {
-        var paths = u.getFiles();
+        var paths_as_str = u.getFiles();
+        var paths = paths_as_str.split("|")
         if(paths.length == 0)
             console.log("Empty paths");
         else
