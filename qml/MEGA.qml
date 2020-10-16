@@ -23,7 +23,7 @@ import Qt.labs.settings 1.0
 MainView {
     id: mainView
     objectName: 'mainView'
-    applicationName: 'mega.roker2'
+    applicationName: 'by.roker2.mega'
     automaticOrientation: true
 
     width: units.gu(45)
