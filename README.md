@@ -15,4 +15,4 @@ You should have received a copy of the GNU General Public License along with thi
 
 ## About program
 
-It is MEGA Cloud client for UBports. It is based on [QML](github.com/nanu-c/qml-go) and [go-mega](github.com/t3rm1n4l/go-mega). It is WIP.
+It is MEGA Cloud client for UBports. It is based on [QML](https://github.com/nanu-c/qml-go) and [go-mega](https://github.com/t3rm1n4l/go-mega). It is WIP.
