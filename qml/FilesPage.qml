@@ -28,8 +28,9 @@ Page {
         title: i18n.tr('MEGAClient')
     }
 
-    Label {
-        text: "Test"
+    ListView {
+        id: filesListView
+        spacing: units.gu(2)
         anchors {
             margins: units.gu(2)
             top: header.bottom
@@ -37,9 +38,27 @@ Page {
             right: parent.right
             bottom: parent.bottom
         }
+
+        delegate: Item {
+            id: item
+            anchors.left: parent.left
+            anchors.right: parent.right
+            height: 40
+            Button {
+                anchors.fill: parent
+                anchors.margins: 5
+
+                text: buttonText
+            }
+        }
+
+        model: ListModel {
+            id: listModel // задаём ей id для обращения
+        }
     }
 
     Component.onCompleted:  {
         u.getFiles()
+        listModel.append({buttonText: "Test"})
     }
 }
