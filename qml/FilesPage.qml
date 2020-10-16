@@ -38,4 +38,8 @@ Page {
             bottom: parent.bottom
         }
     }
+
+    Component.onCompleted:  {
+        u.getFiles()
+    }
 }
