@@ -28,8 +28,6 @@ Page {
         title: i18n.tr('MEGAClient')
     }
 
-    
-
     ListView {
         id: filesListView
         spacing: units.gu(2)
@@ -59,7 +57,7 @@ Page {
         }
     }
 
-    Component.onCompleted:  {
+    Component.onCompleted: {
         var paths_as_str = u.getFiles();
         var paths = paths_as_str.split("|")
         if(paths.length == 0)
