@@ -26,6 +26,7 @@ type user struct {
 	Login string
 	Password string
 	mega *mega.Mega
+	currentNode *mega.Node
 }
 
 var Root qml.Object
@@ -65,12 +66,13 @@ func (u *user) SignIn() bool {
         return false
 	} else {
         log.Println("Work")
+        u.currentNode = u.mega.FS.GetRoot()
         return true
 	}
 }
 
 func (u *user) GetFiles() {
-    nodes, err := u.mega.FS.GetChildren(u.mega.FS.GetRoot())
+    nodes, err := u.mega.FS.GetChildren(u.currentNode)
     if err != nil {
 		log.Println(err)
 		return
