@@ -71,13 +71,16 @@ func (u *user) SignIn() bool {
 	}
 }
 
-func (u *user) GetFiles() {
+func (u *user) GetFiles() []string {
     nodes, err := u.mega.FS.GetChildren(u.currentNode)
     if err != nil {
 		log.Println(err)
-		return
+		return nil
 	}
+	var paths []string
 	for _, node := range nodes {
+		paths = append(paths, node.GetName())
 		log.Println(node.GetName())
 	}
+	return paths
 }
