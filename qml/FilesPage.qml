@@ -58,7 +58,12 @@ Page {
     }
 
     Component.onCompleted:  {
-        u.getFiles()
-        listModel.append({buttonText: "Test"})
+        paths = u.getFiles()
+        if(paths.length == 0)
+            console.log("Empty paths")
+        else
+            paths.forEach(function(item, i, paths) {
+                listModel.append({buttonText: item})
+            })
     }
 }
