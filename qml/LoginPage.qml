@@ -22,7 +22,6 @@ import Qt.labs.settings 1.0
 
 Page {
     id: loginPage
-    signal signIn
     anchors.fill: parent
 
     header: PageHeader {
@@ -69,7 +68,12 @@ Page {
                 color: "white"
                 anchors.centerIn: parent
             }
-            onClicked: loginPage.signIn()
+            onClicked: {
+                if (u.signIn()) {
+                    pageStack.pop()
+                    pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
+                }
+            }
             color: 'red'
             Layout.alignment: Qt.AlignCenter
         }
