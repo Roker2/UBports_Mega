@@ -28,6 +28,8 @@ Page {
         title: i18n.tr('MEGAClient')
     }
 
+    
+
     ListView {
         id: filesListView
         spacing: units.gu(2)
@@ -58,12 +60,12 @@ Page {
     }
 
     Component.onCompleted:  {
-        paths = u.getFiles()
+        var paths = u.getFiles();
         if(paths.length == 0)
-            console.log("Empty paths")
+            console.log("Empty paths");
         else
             paths.forEach(function(item, i, paths) {
                 listModel.append({buttonText: item})
-            })
+            });
     }
 }
