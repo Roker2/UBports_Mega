@@ -86,3 +86,7 @@ func (u *user) GetFiles() string {
 	paths = strings.TrimSuffix(paths, "|")
 	return paths
 }
+
+func (u *user) GetCurrentNodeName() string {
+	return u.currentNode.GetName()
+}
