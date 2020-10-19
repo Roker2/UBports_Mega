@@ -66,5 +66,6 @@ Page {
             paths.forEach(function(item, i, paths) {
                 listModel.append({buttonText: item})
             });
+        header.title = u.getCurrentNodeName();
     }
 }
