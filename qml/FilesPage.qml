@@ -45,9 +45,9 @@ Page {
             anchors.right: parent.right
             height: 40
             Button {
+                property string hash
                 anchors.fill: parent
                 anchors.margins: 5
-
                 text: buttonText
             }
         }
@@ -60,11 +60,13 @@ Page {
     Component.onCompleted: {
         var paths_as_str = u.getFiles();
         var paths = paths_as_str.split("|")
+        var hashes_as_str = u.getHashes()
+        var hashes = hashes_as_str.split("|")
         if(paths.length == 0)
             console.log("Empty paths");
         else
             paths.forEach(function(item, i, paths) {
-                listModel.append({buttonText: item})
+                listModel.append({buttonText: item, hash: hashes[i]})
             });
         header.title = u.getCurrentNodeName();
     }
