@@ -95,3 +95,7 @@ func (u *user) GetFiles() string {
 func (u *user) GetCurrentNodeName() string {
 	return u.currentNode.GetName()
 }
+
+func (u *user) GetCurrentNodeHash() string {
+	return u.currentNode.GetHash()
+}
