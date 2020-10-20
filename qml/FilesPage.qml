@@ -23,9 +23,29 @@ import Qt.labs.settings 1.0
 Page {
     anchors.fill: parent
 
+    property Action backAction: Action {
+        id: backAction
+        objectName: "backButton"
+        iconName: "back"
+        onTriggered: {
+            console.log("Exit from folder")
+            u.popNode()
+            u.regenerateDictionary()
+            pageStack.pop()
+        }
+    }
+
     header: PageHeader {
         id: header
         title: i18n.tr('MEGAClient')
+        leadingActionBar {
+            actions: {
+                if (pageStack.depth == 1)
+                    return null
+                else
+                    return [ backAction ]
+            }
+        }
     }
 
     ListView {
@@ -44,11 +64,15 @@ Page {
             anchors.left: parent.left
             anchors.right: parent.right
             height: 40
+            property string buttonHash: hash
             Button {
-                property string hash
                 anchors.fill: parent
                 anchors.margins: 5
                 text: buttonText
+                onClicked: {
+                    u.pushNode(buttonHash)
+                    pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
+                }
             }
         }
 
