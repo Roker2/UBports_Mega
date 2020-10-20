@@ -29,7 +29,7 @@ type user struct {
 	Password string
 	mega *mega.Mega
 	nodeStack stack.Stack
-	dicNameNode map[string]*mega.Node
+	dicHashNode map[string]*mega.Node
 }
 
 var Root qml.Object
@@ -81,16 +81,29 @@ func (u *user) GetFiles() string {
 		return ""
 	}
 	var paths string
-	dic := make(map[string]*mega.Node)
 	for _, node := range nodes {
-		dic[node.GetName()] = node
 		paths += node.GetName() + "|"
 		log.Println(node.GetName())
 	}
 	paths = strings.TrimSuffix(paths, "|")
-	u.dicNameNode = dic
-	log.Println(u.dicNameNode)
 	return paths
+}
+
+func (u *user) GetHashes() string {
+	nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
+	if err != nil {
+		log.Println(err)
+		return ""
+	}
+	var hashes string
+	dic := make(map[string]*mega.Node)
+	for _, node := range nodes {
+		dic[node.GetHash()] = node
+		hashes += node.GetHash() + "|"
+	}
+	hashes = strings.TrimSuffix(hashes, "|")
+	u.dicHashNode = dic
+	return hashes
 }
 
 func (u *user) GetCurrentNodeName() string {
