@@ -106,10 +106,32 @@ func (u *user) GetHashes() string {
 	return hashes
 }
 
+func (u *user) RegenerateDictionary() {
+	nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	dic := make(map[string]*mega.Node)
+	for _, node := range nodes {
+		dic[node.GetHash()] = node
+	}
+	u.dicHashNode = dic
+}
+
 func (u *user) GetCurrentNodeName() string {
 	return u.nodeStack.Peek().GetName()
 }
 
 func (u *user) GetCurrentNodeHash() string {
 	return u.nodeStack.Peek().GetHash()
+}
+
+func (u *user) PushNode(hash string) {
+	log.Println(hash)
+	u.nodeStack.Push(u.dicHashNode[hash])
+}
+
+func (u *user) PopNode() {
+	u.nodeStack.Pop()
 }
