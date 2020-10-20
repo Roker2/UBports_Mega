@@ -28,6 +28,7 @@ type user struct {
 	Password string
 	mega *mega.Mega
 	currentNode *mega.Node
+	dicNameNode map[string]*mega.Node
 }
 
 var Root qml.Object
@@ -79,11 +80,15 @@ func (u *user) GetFiles() string {
 		return ""
 	}
 	var paths string
+	dic := make(map[string]*mega.Node)
 	for _, node := range nodes {
+		dic[node.GetName()] = node
 		paths += node.GetName() + "|"
 		log.Println(node.GetName())
 	}
 	paths = strings.TrimSuffix(paths, "|")
+	u.dicNameNode = dic
+	log.Println(u.dicNameNode)
 	return paths
 }
 
