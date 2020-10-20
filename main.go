@@ -17,6 +17,7 @@
 package main
 
 import (
+	"./stack"
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
 	"log"
@@ -27,7 +28,7 @@ type user struct {
 	Login string
 	Password string
 	mega *mega.Mega
-	currentNode *mega.Node
+	nodeStack stack.Stack
 	dicNameNode map[string]*mega.Node
 }
 
@@ -68,13 +69,13 @@ func (u *user) SignIn() bool {
         return false
 	} else {
         log.Println("Work")
-        u.currentNode = u.mega.FS.GetRoot()
+        u.nodeStack.Push(u.mega.FS.GetRoot())
         return true
 	}
 }
 
 func (u *user) GetFiles() string {
-    nodes, err := u.mega.FS.GetChildren(u.currentNode)
+    nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
     if err != nil {
 		log.Println(err)
 		return ""
@@ -93,9 +94,9 @@ func (u *user) GetFiles() string {
 }
 
 func (u *user) GetCurrentNodeName() string {
-	return u.currentNode.GetName()
+	return u.nodeStack.Peek().GetName()
 }
 
 func (u *user) GetCurrentNodeHash() string {
-	return u.currentNode.GetHash()
+	return u.nodeStack.Peek().GetHash()
 }
