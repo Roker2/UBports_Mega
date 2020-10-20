@@ -1,12 +1,14 @@
 package stack
 
+import "github.com/t3rm1n4l/go-mega"
+
 type (
 	Stack struct {
 		top *node
 		length int
 	}
 	node struct {
-		value interface{}
+		value *mega.Node
 		prev *node
 	}	
 )
@@ -19,14 +21,14 @@ func (this *Stack) Len() int {
 	return this.length
 }
 // View the top item on the stack
-func (this *Stack) Peek() interface{} {
+func (this *Stack) Peek() *mega.Node {
 	if this.length == 0 {
 		return nil
 	}
 	return this.top.value
 }
 // Pop the top item of the stack and return it
-func (this *Stack) Pop() interface{} {
+func (this *Stack) Pop() *mega.Node {
 	if this.length == 0 {
 		return nil
 	}
@@ -37,7 +39,7 @@ func (this *Stack) Pop() interface{} {
 	return n.value
 }
 // Push a value onto the top of the stack
-func (this *Stack) Push(value interface{}) {
+func (this *Stack) Push(value *mega.Node) {
 	n := &node{value,this.top}
 	this.top = n
 	this.length++
