@@ -135,3 +135,12 @@ func (u *user) PushNode(hash string) {
 func (u *user) PopNode() {
 	u.nodeStack.Pop()
 }
+
+func (u *user) GetNumberOfChildren() int {
+	nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
+	if err != nil {
+		log.Println(err)
+		return -1
+	}
+	return len(nodes)
+}
