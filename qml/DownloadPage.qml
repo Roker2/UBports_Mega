@@ -42,7 +42,15 @@ Page {
         }
     }
 
-    Text {
-        text: 'Download ' + u.getCurrentNodeName()
+    Button {
+        anchors {
+            margins: units.gu(2)
+            top: header.bottom
+            left: parent.left
+            right: parent.right
+            //bottom: parent.bottom
+        }
+        text: 'Download'
+        onClicked: u.downloadCurrentNode()
     }
 }
