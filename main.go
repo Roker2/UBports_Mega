@@ -62,14 +62,14 @@ func run() error {
 }
 
 func (u *user) SignIn() bool {
-	log.Println("Login: " + u.Login)
-	log.Println("Password: " + u.Password)
+	//log.Println("Login: " + u.Login)
+	//log.Println("Password: " + u.Password)
 	err := u.mega.Login(u.Login, u.Password)
 	if err != nil {
         log.Println(err)
         return false
 	} else {
-        log.Println("Work")
+        //log.Println("Work")
         u.nodeStack.Push(u.mega.FS.GetRoot())
         return true
 	}
@@ -84,7 +84,7 @@ func (u *user) GetFiles() string {
 	var paths string
 	for _, node := range nodes {
 		paths += node.GetName() + "|"
-		log.Println(node.GetName())
+		//log.Println(node.GetName())
 	}
 	paths = strings.TrimSuffix(paths, "|")
 	return paths
@@ -129,7 +129,7 @@ func (u *user) GetCurrentNodeHash() string {
 }
 
 func (u *user) PushNode(hash string) {
-	log.Println(hash)
+	//log.Println(hash)
 	u.nodeStack.Push(u.dicHashNode[hash])
 }
 
