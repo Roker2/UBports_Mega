@@ -21,7 +21,6 @@ import (
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
 	"log"
-	"os"
 	"strings"
 )
 
@@ -152,11 +151,7 @@ func (u *user) DownloadCurrentNode() {
 	ch = new(chan int)
 	*ch = make(chan int)
 	go u.showProgress(*ch, u.nodeStack.Peek().GetSize())
-	_, err := os.Create("/tmp/" + u.nodeStack.Peek().GetName())
-	if err != nil {
-		log.Println(err)
-	}
-	err = u.mega.DownloadFile(u.nodeStack.Peek(), "/tmp/" + u.nodeStack.Peek().GetName(), ch)
+	err := u.mega.DownloadFile(u.nodeStack.Peek(), "/tmp/" + u.nodeStack.Peek().GetName(), ch)
 	if err != nil {
 		log.Println(err)
 	}
