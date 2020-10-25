@@ -42,7 +42,8 @@ Page {
         }
     }
 
-    Button {
+    ProgressBar {
+        id: progressBar
         anchors {
             margins: units.gu(2)
             top: header.bottom
@@ -50,7 +51,23 @@ Page {
             right: parent.right
             //bottom: parent.bottom
         }
+        minimumValue: 0
+        maximumValue: 100
+    }
+
+    Button {
+        anchors {
+            margins: units.gu(2)
+            top: progressBar.bottom
+            left: parent.left
+            right: parent.right
+            //bottom: parent.bottom
+        }
         text: 'Download'
-        onClicked: u.downloadCurrentNode()
+        onClicked: {
+            u.downloadCurrentNode()
+            while(u.percent != 100)
+                progressBar.value = u.percent
+        }
     }
 }
