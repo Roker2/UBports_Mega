@@ -150,7 +150,7 @@ func (u *user) DownloadCurrentNode() {
 	var ch *chan int
 	ch = new(chan int)
 	*ch = make(chan int)
-	go showProgress(*ch)
+	go showProgress(*ch, u.nodeStack.Peek().GetSize())
 	_, err := os.Create("/tmp/" + u.nodeStack.Peek().GetName())
 	if err != nil {
 		log.Println(err)
@@ -161,18 +161,20 @@ func (u *user) DownloadCurrentNode() {
 	}
 }
 
-func showProgress(ch chan int) {
+func showProgress(ch chan int, size int64) {
+	bytesread := 0
+	percent := float32(0)
 	for {
 		b := 0
 		ok := false
-		log.Println(<-ch)
-		log.Println(b)
-		log.Println(ok)
 		select {
 		case b, ok = <-ch:
 			if ok == false {
 				return
 			}
 		}
+		bytesread += b
+		percent = 100 * float32(bytesread) / float32(size)
+		log.Println(percent)
 	}
 }
