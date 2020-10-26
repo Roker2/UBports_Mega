@@ -53,7 +53,6 @@ Page {
         }
         minimumValue: 0
         maximumValue: 100
-        value: u.percent
     }
 
     Button {
