@@ -53,6 +53,7 @@ Page {
         }
         minimumValue: 0
         maximumValue: 100
+        value: u.percent
     }
 
     Button {
@@ -66,8 +67,6 @@ Page {
         text: 'Download'
         onClicked: {
             u.downloadCurrentNode()
-            while(u.percent != 100)
-                progressBar.value = u.percent
         }
     }
 }
