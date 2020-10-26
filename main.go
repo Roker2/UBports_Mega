@@ -34,6 +34,7 @@ type user struct {
 }
 
 var Root qml.Object
+var Engine *qml.Engine
 
 func main() {
 	err := qml.Run(run)
@@ -43,14 +44,14 @@ func main() {
 }
 
 func run() error {
-	engine := qml.NewEngine()
-	component, err := engine.LoadFile("qml/MEGA.qml")
+	Engine = qml.NewEngine()
+	component, err := Engine.LoadFile("qml/MEGA.qml")
 	if err != nil {
 		return err
 	}
 
 	u := user{Login: "Login", Password: "Password", mega: mega.New()}
-	context := engine.Context()
+	context := Engine.Context()
 	context.SetVar("u", &u)
 
 	win := component.CreateWindow(nil)
