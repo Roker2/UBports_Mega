@@ -42,6 +42,17 @@ Page {
         }
     }
 
+    Timer {
+        id: timer
+        interval: 100; repeat: true
+        running: true
+        triggeredOnStart: true
+        onTriggered: {
+            console.log(u.percent)
+            progressBar.value = u.percent
+        }
+    }
+
     ProgressBar {
         id: progressBar
         anchors {

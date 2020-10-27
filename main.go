@@ -172,6 +172,6 @@ func (u *user) showProgress(ch chan int, size int64) {
 		}
 		bytesread += b
 		u.Percent = 100 * float32(bytesread) / float32(size)
-		qml.Changed(u, &u.Percent)
+		log.Println(u.Percent)
 	}
 }
