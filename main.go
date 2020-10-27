@@ -30,7 +30,6 @@ type user struct {
 	mega *mega.Mega
 	nodeStack stack.Stack
 	dicHashNode map[string]*mega.Node
-	Percent float32
 }
 
 var Root qml.Object
@@ -151,16 +150,14 @@ func (u *user) DownloadCurrentNode() {
 	var ch *chan int
 	ch = new(chan int)
 	*ch = make(chan int)
-	go u.showProgress(*ch, u.nodeStack.Peek().GetSize())
 	err := u.mega.DownloadFile(u.nodeStack.Peek(), "/tmp/" + u.nodeStack.Peek().GetName(), ch)
 	if err != nil {
 		log.Println(err)
 	}
 }
 
-func (u *user) showProgress(ch chan int, size int64) {
+func showProgress(ch chan int) {
 	bytesread := 0
-	u.Percent = float32(0)
 	for {
 		b := 0
 		ok := false
@@ -171,7 +168,5 @@ func (u *user) showProgress(ch chan int, size int64) {
 			}
 		}
 		bytesread += b
-		u.Percent = 100 * float32(bytesread) / float32(size)
-		qml.Changed(u, &u.Percent)
 	}
 }
