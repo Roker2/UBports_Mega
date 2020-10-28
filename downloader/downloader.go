@@ -3,12 +3,10 @@ package downloader
 import (
 	"../user"
 	"github.com/nanu-c/qml-go"
-	"github.com/t3rm1n4l/go-mega"
 	"log"
 )
 
 type Downloader struct {
-	node *mega.Node
 	Percent float32
 
 	SetterPercent float32
@@ -64,12 +62,12 @@ func (d *Downloader) DownloadNode(u *user.User) {
 				}
 			}
 			bytesread += b
-			d.Percent = float32(bytesread) * 100 / float32(d.node.GetSize())
+			d.Percent = float32(bytesread) * 100 / float32(u.GetCurrentNodeSize())
 			log.Println(d.Percent)
 			d.NotifyPercentChanged()
 		}
 	}()
-	err := u.Mega.DownloadFile(d.node, "/tmp/" + d.node.GetName(), ch)
+	err := u.Mega.DownloadFile(u.GetCurrentNode(), "/tmp/" + u.GetCurrentNodeName(), ch)
 	if err != nil {
 		log.Println(err)
 	}
