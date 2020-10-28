@@ -19,6 +19,7 @@ import Ubuntu.Components 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
+import GoMegaDownloader 1.0
 
 Page {
     anchors.fill: parent
@@ -39,6 +40,15 @@ Page {
         title: 'Download ' + u.getCurrentNodeName()
         leadingActionBar {
             actions: [ backAction ]
+        }
+    }
+
+    Downloader {
+        id: downloader
+        percent: 0
+        onPercentChanged: {
+            console.log("CHANGED")
+            progressBar.value = downloader.percent
         }
     }
 
@@ -65,7 +75,7 @@ Page {
         }
         text: 'Download'
         onClicked: {
-            u.downloadCurrentNode()
+            downloader.downloadNode(u)
         }
     }
 }
