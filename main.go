@@ -17,20 +17,11 @@
 package main
 
 import (
-	"./stack"
+	"./user"
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
 	"log"
-	"strings"
 )
-
-type user struct {
-	Login string
-	Password string
-	mega *mega.Mega
-	nodeStack stack.Stack
-	dicHashNode map[string]*mega.Node
-}
 
 var Root qml.Object
 var Engine *qml.Engine
@@ -49,7 +40,7 @@ func run() error {
 		return err
 	}
 
-	u := user{Login: "Login", Password: "Password", mega: mega.New()}
+	u := user.User{Login: "Login", Password: "Password", Mega: mega.New()}
 	context := Engine.Context()
 	context.SetVar("u", &u)
 
@@ -59,101 +50,6 @@ func run() error {
 	win.Wait()
 
 	return nil
-}
-
-func (u *user) SignIn() bool {
-	//log.Println("Login: " + u.Login)
-	//log.Println("Password: " + u.Password)
-	err := u.mega.Login(u.Login, u.Password)
-	if err != nil {
-        log.Println(err)
-        return false
-	} else {
-        //log.Println("Work")
-        u.nodeStack.Push(u.mega.FS.GetRoot())
-        return true
-	}
-}
-
-func (u *user) GetFiles() string {
-    nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
-    if err != nil {
-		log.Println(err)
-		return ""
-	}
-	var paths string
-	for _, node := range nodes {
-		paths += node.GetName() + "|"
-		//log.Println(node.GetName())
-	}
-	paths = strings.TrimSuffix(paths, "|")
-	return paths
-}
-
-func (u *user) GetHashes() string {
-	nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
-	if err != nil {
-		log.Println(err)
-		return ""
-	}
-	var hashes string
-	dic := make(map[string]*mega.Node)
-	for _, node := range nodes {
-		dic[node.GetHash()] = node
-		hashes += node.GetHash() + "|"
-	}
-	hashes = strings.TrimSuffix(hashes, "|")
-	u.dicHashNode = dic
-	return hashes
-}
-
-func (u *user) RegenerateDictionary() {
-	nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	dic := make(map[string]*mega.Node)
-	for _, node := range nodes {
-		dic[node.GetHash()] = node
-	}
-	u.dicHashNode = dic
-}
-
-func (u *user) GetCurrentNodeName() string {
-	return u.nodeStack.Peek().GetName()
-}
-
-func (u *user) GetCurrentNodeHash() string {
-	return u.nodeStack.Peek().GetHash()
-}
-
-func (u *user) PushNode(hash string) {
-	//log.Println(hash)
-	u.nodeStack.Push(u.dicHashNode[hash])
-}
-
-func (u *user) PopNode() {
-	u.nodeStack.Pop()
-}
-
-func (u *user) GetNumberOfChildren() int {
-	nodes, err := u.mega.FS.GetChildren(u.nodeStack.Peek())
-	if err != nil {
-		log.Println(err)
-		return -1
-	}
-	return len(nodes)
-}
-
-func (u *user) DownloadCurrentNode() {
-	var ch *chan int
-	ch = new(chan int)
-	*ch = make(chan int)
-	err := u.mega.DownloadFile(u.nodeStack.Peek(), "/tmp/" + u.nodeStack.Peek().GetName(), ch)
-	if err != nil {
-		log.Println(err)
-	}
 }
 
 func showProgress(ch chan int) {
