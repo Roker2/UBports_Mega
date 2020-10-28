@@ -11,7 +11,7 @@ type User struct {
 	Login       string
 	Password    string
 	Mega        *mega.Mega
-	nodeStack   stack.Stack
+	NodeStack   stack.Stack
 	dicHashNode map[string]*mega.Node
 }
 
@@ -24,13 +24,13 @@ func (u *User) SignIn() bool {
 		return false
 	} else {
 		//log.Println("Work")
-		u.nodeStack.Push(u.Mega.FS.GetRoot())
+		u.NodeStack.Push(u.Mega.FS.GetRoot())
 		return true
 	}
 }
 
 func (u *User) GetFiles() string {
-	nodes, err := u.Mega.FS.GetChildren(u.nodeStack.Peek())
+	nodes, err := u.Mega.FS.GetChildren(u.NodeStack.Peek())
 	if err != nil {
 		log.Println(err)
 		return ""
@@ -45,7 +45,7 @@ func (u *User) GetFiles() string {
 }
 
 func (u *User) GetHashes() string {
-	nodes, err := u.Mega.FS.GetChildren(u.nodeStack.Peek())
+	nodes, err := u.Mega.FS.GetChildren(u.NodeStack.Peek())
 	if err != nil {
 		log.Println(err)
 		return ""
@@ -62,7 +62,7 @@ func (u *User) GetHashes() string {
 }
 
 func (u *User) RegenerateDictionary() {
-	nodes, err := u.Mega.FS.GetChildren(u.nodeStack.Peek())
+	nodes, err := u.Mega.FS.GetChildren(u.NodeStack.Peek())
 	if err != nil {
 		log.Println(err)
 		return
@@ -75,24 +75,24 @@ func (u *User) RegenerateDictionary() {
 }
 
 func (u *User) GetCurrentNodeName() string {
-	return u.nodeStack.Peek().GetName()
+	return u.NodeStack.Peek().GetName()
 }
 
 func (u *User) GetCurrentNodeHash() string {
-	return u.nodeStack.Peek().GetHash()
+	return u.NodeStack.Peek().GetHash()
 }
 
 func (u *User) PushNode(hash string) {
 	//log.Println(hash)
-	u.nodeStack.Push(u.dicHashNode[hash])
+	u.NodeStack.Push(u.dicHashNode[hash])
 }
 
 func (u *User) PopNode() {
-	u.nodeStack.Pop()
+	u.NodeStack.Pop()
 }
 
 func (u *User) GetNumberOfChildren() int {
-	nodes, err := u.Mega.FS.GetChildren(u.nodeStack.Peek())
+	nodes, err := u.Mega.FS.GetChildren(u.NodeStack.Peek())
 	if err != nil {
 		log.Println(err)
 		return -1
@@ -104,7 +104,7 @@ func (u *User) DownloadCurrentNode() {
 	var ch *chan int
 	ch = new(chan int)
 	*ch = make(chan int)
-	err := u.Mega.DownloadFile(u.nodeStack.Peek(), "/tmp/" + u.nodeStack.Peek().GetName(), ch)
+	err := u.Mega.DownloadFile(u.NodeStack.Peek(), "/tmp/" + u.NodeStack.Peek().GetName(), ch)
 	if err != nil {
 		log.Println(err)
 	}
