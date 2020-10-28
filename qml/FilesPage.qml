@@ -72,7 +72,7 @@ Page {
                 onClicked: {
                     u.pushNode(buttonHash)
                     if(!u.getNumberOfChildren())
-                        pageStack.push(Qt.resolvedUrl("DownloadPage.qml"))
+                        pageStack.push(Qt.resolvedUrl("ActionsPage.qml"))
                     else
                         pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
                 }
