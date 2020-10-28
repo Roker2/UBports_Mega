@@ -17,6 +17,7 @@
 package main
 
 import (
+	"./downloader"
 	"./user"
 	"github.com/nanu-c/qml-go"
 	"github.com/t3rm1n4l/go-mega"
@@ -34,6 +35,7 @@ func main() {
 }
 
 func run() error {
+	downloader.Register()
 	Engine = qml.NewEngine()
 	component, err := Engine.LoadFile("qml/MEGA.qml")
 	if err != nil {
