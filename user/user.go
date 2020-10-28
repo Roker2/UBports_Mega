@@ -82,6 +82,10 @@ func (u *User) GetCurrentNodeHash() string {
 	return u.nodeStack.Peek().GetHash()
 }
 
+func (u *User) GetCurrentNodeSize() int64 {
+	return u.nodeStack.Peek().GetSize()
+}
+
 func (u *User) PushNode(hash string) {
 	//log.Println(hash)
 	u.nodeStack.Push(u.dicHashNode[hash])
