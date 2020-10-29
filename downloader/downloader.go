@@ -43,7 +43,7 @@ func (d *Downloader) ChangePercent(new float32) (old float32) {
 }
 
 func (d *Downloader) NotifyPercentChanged() {
-	qml.Changed(d, &d.Percent)
+	go qml.Changed(d, &d.Percent)
 }
 
 func (d *Downloader) DownloadNode(u *user.User) {
