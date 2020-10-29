@@ -52,7 +52,10 @@ Dialog {
     Button {
         id: downloadButton
         text: "Download"
-        onClicked: pageStack.push(Qt.resolvedUrl("DownloadPage.qml"))
+        onClicked: {
+            pageStack.push(Qt.resolvedUrl("../DownloadPage.qml"))
+            PopupUtils.close(actionsDialog)
+        }
     }
 
     Button {
