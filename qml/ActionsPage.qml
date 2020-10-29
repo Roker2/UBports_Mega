@@ -24,23 +24,9 @@ import Qt.labs.settings 1.0
 Page {
     anchors.fill: parent
 
-    property Action backAction: Action {
-        id: backAction
-        objectName: "backButton"
-        iconName: "back"
-        onTriggered: {
-            u.popNode()
-            u.regenerateDictionary()
-            pageStack.pop()
-        }
-    }
-
     header: PageHeader {
         id: header
         title: u.getCurrentNodeName()
-        leadingActionBar {
-            actions: [ backAction ]
-        }
     }
 
     Label {
