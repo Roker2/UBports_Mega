@@ -86,6 +86,13 @@ func (u *User) GetCurrentNodeSize() int64 {
 	return u.nodeStack.Peek().GetSize()
 }
 
+func (u *User) DeleteCurrentNode() {
+	err := u.Mega.Delete(u.nodeStack.Peek(), true)
+	if err != nil {
+		log.Println(err)
+	}
+}
+
 func (u *User) PushNode(hash string) {
 	//log.Println(hash)
 	u.nodeStack.Push(u.dicHashNode[hash])
