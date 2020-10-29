@@ -67,10 +67,12 @@ func (d *Downloader) DownloadNode(u *user.User) {
 			d.NotifyPercentChanged()
 		}
 	}()
-	err := u.Mega.DownloadFile(u.NodeStack.Peek(), "/tmp/" + u.NodeStack.Peek().GetName(), ch)
-	if err != nil {
-		log.Println(err)
-	}
+	go func() {
+		err := u.Mega.DownloadFile(u.NodeStack.Peek(), "/tmp/" + u.NodeStack.Peek().GetName(), ch)
+		if err != nil {
+			log.Println(err)
+		}
+	}()
 }
 
 func Register() {
