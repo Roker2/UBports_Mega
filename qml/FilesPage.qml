@@ -84,7 +84,8 @@ Page {
         }
     }
 
-    Component.onCompleted: {
+    function makeButtons() {
+        listModel.clear();
         var paths_as_str = u.getFiles();
         var paths = paths_as_str.split("|")
         var hashes_as_str = u.getHashes()
@@ -95,6 +96,10 @@ Page {
             paths.forEach(function(item, i, paths) {
                 listModel.append({buttonText: item, hash: hashes[i]})
             });
+    }
+
+    Component.onCompleted: {
+        makeButtons()
         header.title = u.getCurrentNodeName();
     }
 }
