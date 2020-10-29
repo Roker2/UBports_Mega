@@ -18,14 +18,10 @@ package main
 
 import (
 	"./downloader"
-	"./user"
+	"./ui"
 	"github.com/nanu-c/qml-go"
-	"github.com/t3rm1n4l/go-mega"
 	"log"
 )
-
-var Root qml.Object
-var Engine *qml.Engine
 
 func main() {
 	err := qml.Run(run)
@@ -36,20 +32,15 @@ func main() {
 
 func run() error {
 	downloader.Register()
-	Engine = qml.NewEngine()
-	component, err := Engine.LoadFile("qml/MEGA.qml")
+	ui.SetEngine()
+
+	ui.InitModels()
+	err := ui.SetComponent()
 	if err != nil {
 		return err
 	}
-
-	u := user.User{Login: "Login", Password: "Password", Mega: mega.New()}
-	context := Engine.Context()
-	context.SetVar("u", &u)
-
-	win := component.CreateWindow(nil)
-	Root = win.Root()
-	win.Show()
-	win.Wait()
+	ui.Win.Show()
+	ui.Win.Wait()
 
 	return nil
 }
