@@ -17,26 +17,14 @@
 import QtQuick 2.7
 import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
-//import QtQuick.Controls 2.2
-import QtQuick.Layouts 1.3
-import Qt.labs.settings 1.0
 
-Page {
-    anchors.fill: parent
+Dialog {
 
-    header: PageHeader {
-        id: header
-        title: u.getCurrentNodeName()
-    }
+    property var currentPage
 
+    id: actionsDialog
     Label {
         id: sizeLabel
-        anchors {
-            margins: units.gu(2)
-            top: header.bottom
-            left: parent.left
-            right: parent.right
-        }
         text: {
             var suffix = "bytes"
             var size = u.getCurrentNodeSize()
@@ -66,58 +54,51 @@ Page {
 
     Button {
         id: downloadButton
-        anchors {
-            margins: units.gu(2)
-            top: sizeLabel.bottom
-            left: parent.left
-            right: parent.right
-        }
         text: "Download"
         onClicked: pageStack.push(Qt.resolvedUrl("DownloadPage.qml"))
     }
 
     Button {
         id: renameButton
-        anchors {
-            margins: units.gu(2)
-            top: downloadButton.bottom
-            left: parent.left
-            right: parent.right
-        }
         text: "Rename"
         onClicked: {
             var props = {
                 "inputText": u.getCurrentNodeName()
             }
-            var popup = PopupUtils.open(Qt.resolvedUrl("dialogs/ConfirmRenameDialog.qml"), mainView, props)
+            var popup = PopupUtils.open(Qt.resolvedUrl("ConfirmRenameDialog.qml"), mainView, props)
             popup.accepted.connect(function(inputText) {
                 console.log("Rename " + u.getCurrentNodeName() + " to " + inputText)
                 u.renameCurrentNode(inputText)
                 u.popNode()
                 u.regenerateDictionary()
-                pageStack.pop()
+                currentPage.makeButtons()
+                PopupUtils.close(actionsDialog)
             })
         }
     }
 
     Button {
         id: deleteButton
-        anchors {
-            margins: units.gu(2)
-            top: renameButton.bottom
-            left: parent.left
-            right: parent.right
-        }
         text: "Delete"
         onClicked: {
-            var popup = PopupUtils.open(Qt.resolvedUrl("dialogs/ConfirmSingleDeleteDialog.qml"), mainView)
+            var popup = PopupUtils.open(Qt.resolvedUrl("ConfirmSingleDeleteDialog.qml"), mainView)
             popup.accepted.connect(function() {
                 console.log("Delete accepted for " + u.getCurrentNodeName())
                 u.deleteCurrentNode()
                 u.popNode()
                 u.regenerateDictionary()
-                pageStack.pop()
+                currentPage.makeButtons()
+                PopupUtils.close(actionsDialog)
             })
+        }
+    }
+
+    Button {
+        id: cancelButton
+        text: "Cancel"
+        onClicked: {
+            u.popNode()
+            PopupUtils.close(actionsDialog)
         }
     }
 }
