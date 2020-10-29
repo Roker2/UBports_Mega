@@ -19,9 +19,6 @@ import Ubuntu.Components 1.3
 import Ubuntu.Components.Popups 1.3
 
 Dialog {
-
-    property var currentPage
-
     id: actionsDialog
     Label {
         id: sizeLabel
@@ -71,7 +68,7 @@ Dialog {
                 u.renameCurrentNode(inputText)
                 u.popNode()
                 u.regenerateDictionary()
-                currentPage.makeButtons()
+                pageStack.currentPage.makeButtons()
                 PopupUtils.close(actionsDialog)
             })
         }
@@ -87,7 +84,7 @@ Dialog {
                 u.deleteCurrentNode()
                 u.popNode()
                 u.regenerateDictionary()
-                currentPage.makeButtons()
+                pageStack.currentPage.makeButtons()
                 PopupUtils.close(actionsDialog)
             })
         }
