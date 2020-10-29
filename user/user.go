@@ -74,6 +74,10 @@ func (u *User) RegenerateDictionary() {
 	u.dicHashNode = dic
 }
 
+func (u *User) GetCurrentNode() *mega.Node {
+	return u.nodeStack.Peek()
+}
+
 func (u *User) GetCurrentNodeName() string {
 	return u.nodeStack.Peek().GetName()
 }
