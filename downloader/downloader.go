@@ -67,10 +67,12 @@ func (d *Downloader) DownloadNode(u *user.User) {
 			d.NotifyPercentChanged()
 		}
 	}()
-	err := u.Mega.DownloadFile(u.GetCurrentNode(), "/tmp/" + u.GetCurrentNodeName(), ch)
-	if err != nil {
-		log.Println(err)
-	}
+	go func() {
+		err := u.Mega.DownloadFile(u.GetCurrentNode(), "/tmp/" + u.GetCurrentNodeName(), ch)
+		if err != nil {
+			log.Println(err)
+		}
+	}()
 }
 
 func Register() {
