@@ -85,6 +85,19 @@ Page {
             right: parent.right
         }
         text: "Rename"
+        onClicked: {
+            var props = {
+                "inputText": u.getCurrentNodeName()
+            }
+            var popup = PopupUtils.open(Qt.resolvedUrl("dialogs/ConfirmRenameDialog.qml"), mainView, props)
+            popup.accepted.connect(function(inputText) {
+                console.log("Rename " + u.getCurrentNodeName() + " to " + inputText)
+                u.renameCurrentNode(inputText)
+                u.popNode()
+                u.regenerateDictionary()
+                pageStack.pop()
+            })
+        }
     }
 
     Button {
