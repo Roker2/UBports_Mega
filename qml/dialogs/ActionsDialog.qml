@@ -20,6 +20,11 @@ import Ubuntu.Components.Popups 1.3
 
 Dialog {
     id: actionsDialog
+
+    Label {
+        text: u.getCurrentNodeName()
+    }
+
     Label {
         id: sizeLabel
         text: {
