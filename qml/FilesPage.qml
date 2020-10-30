@@ -61,23 +61,21 @@ Page {
             bottom: buttonsRow.top
         }
 
-        delegate: Item {
+        delegate: ListItem {
             id: item
             anchors.left: parent.left
             anchors.right: parent.right
             height: 40
             property string buttonHash: hash
-            Button {
-                anchors.fill: parent
-                anchors.margins: 5
-                text: buttonText
-                onClicked: {
-                    u.pushNode(buttonHash)
-                    if(!u.currentNodeIsFolder())
-                        PopupUtils.open(Qt.resolvedUrl("dialogs/FileActionsDialog.qml"), mainView)
-                    else
-                        pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
-                }
+            ListItemLayout {
+                title.text: buttonText
+            }
+            onClicked: {
+                u.pushNode(buttonHash)
+                if(!u.currentNodeIsFolder())
+                    PopupUtils.open(Qt.resolvedUrl("dialogs/FileActionsDialog.qml"), mainView)
+                else
+                    pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
             }
         }
 
