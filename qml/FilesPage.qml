@@ -58,7 +58,7 @@ Page {
             top: header.bottom
             left: parent.left
             right: parent.right
-            bottom: parent.bottom
+            bottom: buttonsRow.top
         }
 
         delegate: Item {
@@ -83,6 +83,23 @@ Page {
 
         model: ListModel {
             id: listModel // задаём ей id для обращения
+        }
+    }
+
+    Row {
+        id: buttonsRow
+        spacing: units.gu(2)
+        anchors {
+            margins: units.gu(2)
+            top: header.filesListView
+            //left: parent.left
+            //right: parent.right
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+        }
+        Button {
+            text: "Refresh"
+            onClicked: makeButtons()
         }
     }
 
