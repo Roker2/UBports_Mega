@@ -18,6 +18,7 @@ type User struct {
 func (u *User) SignIn() bool {
 	//log.Println("Login: " + u.Login)
 	//log.Println("Password: " + u.Password)
+	u.Mega = mega.New()
 	err := u.Mega.Login(u.Login, u.Password)
 	if err != nil {
 		log.Println(err)

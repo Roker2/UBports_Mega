@@ -3,7 +3,6 @@ package ui
 import (
 	"../user"
 	"github.com/nanu-c/qml-go"
-	"github.com/t3rm1n4l/go-mega"
 	"log"
 )
 
@@ -15,7 +14,7 @@ func SetEngine() {
 }
 
 func InitModels() {
-	u := user.User{Login: "Login", Password: "Password", Mega: mega.New()}
+	u := user.User{Login: "Login", Password: "Password"}
 	Engine.Context().SetVar("u", &u)
 }
 
