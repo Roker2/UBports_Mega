@@ -82,7 +82,7 @@ Dialog {
         }
     }
 
-    Button {
+    /*Button {
         id: deleteButton
         text: "Delete"
         onClicked: {
@@ -96,7 +96,7 @@ Dialog {
                 PopupUtils.close(actionsDialog)
             })
         }
-    }
+    }*/
 
     Button {
         id: cancelButton
