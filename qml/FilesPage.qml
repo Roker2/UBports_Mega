@@ -74,7 +74,10 @@ Page {
                 onClicked: {
                     u.pushNode(buttonHash)
                     if(!u.getNumberOfChildren())
-                        PopupUtils.open(Qt.resolvedUrl("dialogs/FileActionsDialog.qml"), mainView)
+                        if(!u.currentNodeIsFolder())
+                            PopupUtils.open(Qt.resolvedUrl("dialogs/FileActionsDialog.qml"), mainView)
+                        else
+                            PopupUtils.open(Qt.resolvedUrl("dialogs/FolderActionsDialog.qml"), mainView)
                     else
                         pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
                 }
@@ -100,6 +103,12 @@ Page {
         Button {
             text: "Refresh"
             onClicked: makeButtons()
+        }
+        Button {
+            text: "Folder actions"
+            onClicked: {
+                PopupUtils.open(Qt.resolvedUrl("dialogs/FolderActionsDialog.qml"), mainView)
+            }
         }
     }
 
