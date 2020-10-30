@@ -118,8 +118,12 @@ Page {
         }
     }
 
+    function setHeaderName() {
+        header.title = u.getCurrentNodeName();
+    }
+
     Component.onCompleted: {
         makeButtons()
-        header.title = u.getCurrentNodeName();
+        setHeaderName()
     }
 }
