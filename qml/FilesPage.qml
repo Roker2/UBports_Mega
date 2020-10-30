@@ -73,11 +73,8 @@ Page {
                 text: buttonText
                 onClicked: {
                     u.pushNode(buttonHash)
-                    if(!u.getNumberOfChildren())
-                        if(!u.currentNodeIsFolder())
-                            PopupUtils.open(Qt.resolvedUrl("dialogs/FileActionsDialog.qml"), mainView)
-                        else
-                            PopupUtils.open(Qt.resolvedUrl("dialogs/FolderActionsDialog.qml"), mainView)
+                    if(!u.currentNodeIsFolder())
+                        PopupUtils.open(Qt.resolvedUrl("dialogs/FileActionsDialog.qml"), mainView)
                     else
                         pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
                 }
