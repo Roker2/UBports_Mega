@@ -90,6 +90,10 @@ func (u *User) GetCurrentNodeSize() int64 {
 	return u.nodeStack.Peek().GetSize()
 }
 
+func (u *User) CurrentNodeIsFolder() bool {
+	return u.nodeStack.Peek().GetType() == mega.FOLDER
+}
+
 func (u *User) DeleteCurrentNode() {
 	err := u.Mega.Delete(u.nodeStack.Peek(), true)
 	if err != nil {
