@@ -18,10 +18,6 @@ type Downloader struct {
 	getterPercentChanged int
 }
 
-func (d *Downloader) Test() {
-	log.Println("TEST")
-}
-
 func (d *Downloader) SetSetterPercent(p float32) {
 	d.setterPercentChanged++
 	d.setterPercentSet = p
