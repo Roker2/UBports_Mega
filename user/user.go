@@ -23,8 +23,8 @@ func (u *User) SignIn() bool {
 		log.Println(err)
 		return false
 	} else {
-		//log.Println("Work")
-		u.nodeStack.Push(u.Mega.FS.GetRoot())
+		//log.Println("Work")PushRoot()
+		u.PushRoot()
 		return true
 	}
 }
@@ -149,4 +149,12 @@ func (u *User) DownloadCurrentNode() {
 	if err != nil {
 		log.Println(err)
 	}
+}
+
+func (u *User) StackIsEmpty() bool {
+	return u.nodeStack.Len() == 0
+}
+
+func (u *User) PushRoot() {
+	u.nodeStack.Push(u.Mega.FS.GetRoot())
 }
