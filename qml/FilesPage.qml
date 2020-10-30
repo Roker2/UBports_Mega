@@ -77,6 +77,13 @@ Page {
                 else
                     pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
             }
+            onPressAndHold: {
+                u.pushNode(buttonHash)
+                if(u.currentNodeIsFolder())
+                    PopupUtils.open(Qt.resolvedUrl("dialogs/FolderActionsDialog.qml"), mainView)
+                else
+                    u.popNode()
+            }
         }
 
         model: ListModel {
