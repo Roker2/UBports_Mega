@@ -54,6 +54,9 @@ func (d *Downloader) DownloadNode(u *user.User) {
 			select {
 			case b, ok = <-*ch:
 				if ok == false {
+					d.Percent = 100
+					log.Println(d.Percent)
+					d.NotifyPercentChanged()
 					return
 				}
 			}
