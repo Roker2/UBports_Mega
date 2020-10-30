@@ -106,15 +106,16 @@ Page {
     function makeButtons() {
         listModel.clear();
         var paths_as_str = u.getFiles();
-        var paths = paths_as_str.split("|")
-        var hashes_as_str = u.getHashes()
-        var hashes = hashes_as_str.split("|")
-        if(paths.length == 0)
+        if(paths_as_str == "")
             console.log("Empty paths");
-        else
+        else {
+        var paths = paths_as_str.split("|")
+            var hashes_as_str = u.getHashes()
+            var hashes = hashes_as_str.split("|")
             paths.forEach(function(item, i, paths) {
                 listModel.append({buttonText: item, hash: hashes[i]})
             });
+        }
     }
 
     Component.onCompleted: {
