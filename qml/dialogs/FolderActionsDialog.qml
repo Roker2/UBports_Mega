@@ -45,15 +45,13 @@ Dialog {
             popup.accepted.connect(function(inputText) {
                 console.log("Rename " + u.getCurrentNodeName() + " to " + inputText)
                 u.renameCurrentNode(inputText)
-                u.popNode()
-                u.regenerateDictionary()
-                pageStack.currentPage.makeButtons()
+                pageStack.currentPage.setHeaderName()
                 PopupUtils.close(actionsDialog)
             })
         }
     }
 
-    Button {
+    /*Button {
         id: deleteButton
         text: "Delete"
         onClicked: {
@@ -63,17 +61,17 @@ Dialog {
                 u.deleteCurrentNode()
                 u.popNode()
                 u.regenerateDictionary()
+                pageStack.pop()
                 pageStack.currentPage.makeButtons()
                 PopupUtils.close(actionsDialog)
             })
         }
-    }
+    }*/
 
     Button {
         id: cancelButton
         text: "Cancel"
         onClicked: {
-            u.popNode()
             PopupUtils.close(actionsDialog)
         }
     }
