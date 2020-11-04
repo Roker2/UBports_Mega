@@ -127,31 +127,6 @@ func (u *User) GetNumberOfChildren() int {
 	return len(nodes)
 }
 
-func (u *User) DownloadCurrentNode() {
-	var ch *chan int
-	ch = new(chan int)
-	*ch = make(chan int)
-	go func() {
-		bytesread := 0
-		for {
-			b := 0
-			ok := false
-			select {
-			case b, ok = <-*ch:
-				if ok == false {
-					return
-				}
-			}
-			bytesread += b
-			log.Println(float32(bytesread) * 100 / float32(u.nodeStack.Peek().GetSize()))
-		}
-	}()
-	err := u.Mega.DownloadFile(u.nodeStack.Peek(), "/tmp/" + u.nodeStack.Peek().GetName(), ch)
-	if err != nil {
-		log.Println(err)
-	}
-}
-
 func (u *User) StackIsEmpty() bool {
 	return u.nodeStack.Len() == 0
 }
