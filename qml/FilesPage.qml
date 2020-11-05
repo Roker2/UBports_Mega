@@ -106,6 +106,10 @@ Page {
             text: "Refresh"
             onClicked: makeButtons()
         }
+        Button {
+            text: "Upload file"
+            onClicked: pageStack.push(Qt.resolvedUrl("UploadPage.qml"))
+        }
     }
 
     function makeButtons() {
