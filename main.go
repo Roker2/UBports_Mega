@@ -19,6 +19,7 @@ package main
 import (
 	"./downloader"
 	"./ui"
+	"./uploader"
 	"github.com/Roker2/qml-go-iocomponent"
 	"github.com/nanu-c/qml-go"
 	"log"
@@ -33,6 +34,7 @@ func main() {
 
 func run() error {
 	downloader.Register()
+	uploader.Register()
 	iocomponent.Register("by.roker2.mega")
 	ui.SetEngine()
 
