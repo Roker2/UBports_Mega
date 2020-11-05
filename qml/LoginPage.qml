@@ -19,6 +19,7 @@ import Ubuntu.Components 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
+import GoIOComponent 0.1
 
 Page {
     id: loginPage
@@ -37,6 +38,10 @@ Page {
             verticalCenter: inputRecLogin.verticalCenter
         }
         text: "Login:"
+    }
+
+    IOComponent {
+        id: io
     }
 
     InputRectangle {
@@ -86,6 +91,25 @@ Page {
         }
     }
 
+    CheckBox {
+        id: checkBoxSaveLogin
+        anchors {
+            margins: units.gu(2)
+            top: inputRecPswd.bottom
+            left: parent.left
+        }
+        checked: false
+    }
+
+    Label {
+        anchors {
+            margins: units.gu(2)
+            left: checkBoxSaveLogin.right
+            verticalCenter: checkBoxSaveLogin.verticalCenter
+        }
+        text: "Save login"
+    }
+
     Button {
         anchors {
             margins: units.gu(2)
@@ -99,11 +123,17 @@ Page {
         }
         onClicked: {
             if (u.signIn()) {
+                if (checkBoxSaveLogin.checked)
+                    io.writeToFile(0, "login", u.login)
                 pageStack.pop()
                 pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
             }
         }
         color: 'red'
         Layout.alignment: Qt.AlignCenter
+    }
+
+    Component.onCompleted: {
+        login.text = io.readFromFile(0, "login")
     }
 }
