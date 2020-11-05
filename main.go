@@ -19,6 +19,7 @@ package main
 import (
 	"./downloader"
 	"./ui"
+	"./uploader"
 	"github.com/nanu-c/qml-go"
 	"log"
 )
@@ -32,6 +33,7 @@ func main() {
 
 func run() error {
 	downloader.Register()
+	uploader.Register()
 	ui.SetEngine()
 
 	ui.InitModels()
