@@ -26,56 +26,84 @@ Page {
 
     header: PageHeader {
         id: header
-        title: i18n.tr('MEGAClient')
+        title: i18n.tr('MEGA Client')
     }
 
-    ColumnLayout {
-        spacing: units.gu(2)
+    Label {
+        id: loginLabel
+        anchors {
+            margins: units.gu(2)
+            left: parent.left
+            verticalCenter: inputRecLogin.verticalCenter
+        }
+        text: "Login:"
+    }
+
+    InputRectangle {
+        id: inputRecLogin
         anchors {
             margins: units.gu(2)
             top: header.bottom
-            left: parent.left
+            left: loginLabel.right
             right: parent.right
+        }
+        TextInput {
+            id: login
+            x: 5
+            y: 2
+            width: parent.width - x ;
+            //text: "Login"
+            onEditingFinished: { u.login = login.text }
+        }
+    }
+
+    Label {
+        id: pswdLabel
+        anchors {
+            margins: units.gu(2)
+            left: parent.left
+            verticalCenter: inputRecPswd.verticalCenter
+        }
+        text: "Password:"
+    }
+
+    InputRectangle {
+        id: inputRecPswd
+        anchors {
+            margins: units.gu(2)
+            top: inputRecLogin.bottom
+            left: pswdLabel.right
+            right: parent.right
+        }
+        TextInput {
+            id: pswd
+            x: 5
+            y: 2
+            width: parent.width - x ;
+            //text: "Password"
+            echoMode: TextInput.PasswordEchoOnEdit
+            onEditingFinished: { u.password = pswd.text }
+        }
+    }
+
+    Button {
+        anchors {
+            margins: units.gu(2)
             bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
         }
-
-        InputRectangle {
-            TextInput {
-                id: login
-                x: 5
-                y: 2
-                width: parent.width - x ;
-                //text: "Login"
-                onEditingFinished: { u.login = login.text }
+        Text {
+            text: "Sign in"
+            color: "white"
+            anchors.centerIn: parent
+        }
+        onClicked: {
+            if (u.signIn()) {
+                pageStack.pop()
+                pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
             }
         }
-
-        InputRectangle {
-            TextInput {
-                id: pswd
-                x: 5
-                y: 2
-                width: parent.width - x ;
-                //text: "Password"
-                echoMode: TextInput.PasswordEchoOnEdit
-                onEditingFinished: { u.password = pswd.text }
-            }
-        }
-
-        Button {
-            Text {
-                text: "Sign in"
-                color: "white"
-                anchors.centerIn: parent
-            }
-            onClicked: {
-                if (u.signIn()) {
-                    pageStack.pop()
-                    pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
-                }
-            }
-            color: 'red'
-            Layout.alignment: Qt.AlignCenter
-        }
+        color: 'red'
+        Layout.alignment: Qt.AlignCenter
     }
 }
