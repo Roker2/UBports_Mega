@@ -44,18 +44,3 @@ func run() error {
 
 	return nil
 }
-
-func showProgress(ch chan int) {
-	bytesread := 0
-	for {
-		b := 0
-		ok := false
-		select {
-		case b, ok = <-ch:
-			if ok == false {
-				return
-			}
-		}
-		bytesread += b
-	}
-}
