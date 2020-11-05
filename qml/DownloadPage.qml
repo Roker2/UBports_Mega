@@ -47,6 +47,13 @@ Page {
         }
     }
 
+    ContentPeer {
+        id: fileSourceSingle
+        contentType: ContentType.All
+        handler: ContentHandler.Source
+        selectionType: ContentTransfer.Single
+    }
+
     Downloader {
         id: downloader
         percent: 0
@@ -55,6 +62,7 @@ Page {
             progressBar.value = downloader.percent
             if (downloader.percent == 100)
             {
+                downloadPage.activeTransfer = fileSourceSingle.request()
                 downloadPage.activeTransfer.items = [ resultComponent.createObject(parent, {"url": "/tmp/" + u.getCurrentNodeName()}) ];
                 downloadPage.activeTransfer.state = ContentTransfer.Charged;
             }
