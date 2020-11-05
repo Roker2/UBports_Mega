@@ -26,7 +26,7 @@ Page {
     id: downloadPage
     anchors.fill: parent
     property list<ContentItem> exportItems
-    property var activeTransfer
+    property var activeTransfer: null
 
     property Action backAction: Action {
         id: backAction
