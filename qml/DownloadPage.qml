@@ -16,13 +16,17 @@
 
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Content 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
 import GoMegaDownloader 1.0
 
 Page {
+    id: downloadPage
     anchors.fill: parent
+    property list<ContentItem> exportItems
+    property var activeTransfer
 
     property Action backAction: Action {
         id: backAction
@@ -49,6 +53,11 @@ Page {
         onPercentChanged: {
             console.log("CHANGED")
             progressBar.value = downloader.percent
+            if (downloader.percent == 100)
+            {
+                downloadPage.activeTransfer.items = [ resultComponent.createObject(parent, {"url": "/tmp/" + u.getCurrentNodeName()}) ];
+                downloadPage.activeTransfer.state = ContentTransfer.Charged;
+            }
         }
     }
 
@@ -77,5 +86,24 @@ Page {
         onClicked: {
             downloader.downloadNode(u)
         }
+    }
+
+    Connections {
+        target: downloadPage.activeTransfer
+        onStateChanged: {
+            if (downloadPage.activeTransfer.state === ContentTransfer.Charged)
+                exportItems = downloadPage.activeTransfer.items;
+        }
+    }
+
+    ContentTransferHint {
+        id: exportHint
+        anchors.fill: parent
+        activeTransfer: downloadPage.activeTransfer
+    }
+
+    Component {
+        id: resultComponent
+        ContentItem {}
     }
 }
