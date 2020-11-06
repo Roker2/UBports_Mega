@@ -150,3 +150,10 @@ func (u *User) StackIsEmpty() bool {
 func (u *User) PushRoot() {
 	u.nodeStack.Push(u.Mega.FS.GetRoot())
 }
+
+func (u *User) CreateDir(name string) {
+	_, err := u.Mega.CreateDir(name, u.nodeStack.Peek())
+	if err != nil {
+		log.Println(err)
+	}
+}
