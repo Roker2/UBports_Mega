@@ -99,6 +99,12 @@ Page {
             left: parent.left
         }
         checked: false
+        onCheckedChanged: {
+            if (checkBoxSaveLogin.checked)
+                io.createFile(0, "saveLogin")
+            else
+                io.removeFile(0, "saveLogin")
+        }
     }
 
     Label {
@@ -138,5 +144,7 @@ Page {
     Component.onCompleted: {
         if (io.fileIsExist(0, "login"))
             login.text = io.readFromFile(0, "login")
+        if (io.fileIsExist(0, "saveLogin"))
+            checkBoxSaveLogin.checked = true
     }
 }
