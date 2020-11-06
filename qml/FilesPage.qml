@@ -106,6 +106,18 @@ Page {
             text: "Refresh"
             onClicked: makeButtons()
         }
+        Button {
+            text: "Create directory"
+            onClicked: {
+                var popup = PopupUtils.open(Qt.resolvedUrl("dialogs/CreateDirDialog.qml"), mainView)
+                popup.accepted.connect(function(inputText) {
+                    u.createDir(inputText)
+                    u.regenerateDictionary()
+                    makeButtons()
+                    PopupUtils.close(popup)
+                })
+            }
+        }
     }
 
     function makeButtons() {
