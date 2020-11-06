@@ -125,6 +125,8 @@ Page {
             if (u.signIn()) {
                 if (checkBoxSaveLogin.checked)
                     io.writeToFile(0, "login", u.login)
+                else
+                    io.removeFile(0, "login")
                 pageStack.pop()
                 pageStack.push(Qt.resolvedUrl("FilesPage.qml"))
             }
