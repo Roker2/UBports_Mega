@@ -58,7 +58,7 @@ Page {
             y: 2
             width: parent.width - x ;
             //text: "Login"
-            onEditingFinished: { u.login = login.text }
+            onTextChanged: { u.login = login.text }
         }
     }
 
