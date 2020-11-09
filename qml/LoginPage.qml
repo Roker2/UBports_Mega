@@ -16,10 +16,11 @@
 
 import QtQuick 2.7
 import Ubuntu.Components 1.3
+import Ubuntu.Components.Popups 1.3
 //import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import Qt.labs.settings 1.0
-import GoIOComponent 0.1
+import GoIOComponent 0.2
 
 Page {
     id: loginPage
@@ -129,8 +130,13 @@ Page {
         }
         onClicked: {
             if (u.signIn()) {
-                if (checkBoxSaveLogin.checked)
-                    io.writeToFile(0, "login", u.login)
+                if (checkBoxSaveLogin.checked) {
+                    var err = io.writeToFile(0, "login", u.login)
+                    if(err) {
+                        errorNotify(err.error())
+                        return
+                    }
+                }
                 else
                     io.removeFile(0, "login")
                 pageStack.pop()
@@ -141,10 +147,18 @@ Page {
         Layout.alignment: Qt.AlignCenter
     }
 
+    function errorNotify(err) {
+        var props = {
+            title: "Error",
+            text: err
+        }
+        PopupUtils.open(Qt.resolvedUrl("dialogs/NotifyDialog.qml"), mainView, props)
+    }
+
     Component.onCompleted: {
-        if (io.fileIsExist(0, "login"))
+        if (io.isExist(0, "login"))
             login.text = io.readFromFile(0, "login")
-        if (io.fileIsExist(0, "saveLogin"))
+        if (io.isExist(0, "saveLogin"))
             checkBoxSaveLogin.checked = true
     }
 }
